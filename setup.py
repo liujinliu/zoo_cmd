@@ -13,11 +13,11 @@ def _setup():
         author_email='',
         url='',
         install_requires=['kazoo'],
-        packages=['zoo_cmd'],
+        packages=['zoo_cmd', 'zoo_cmd.zk'],
         package_dir={'': 'src'},
         entry_points={
             'console_scripts': [
-                'zk_cmd=zoo_cmd.zoo_cmd:main',
+                'zk_cmd=zoo_cmd.main:main',
                 ]
             },
         classifiers=[
