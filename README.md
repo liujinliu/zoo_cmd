@@ -19,4 +19,4 @@ instance zk client (127.0.0.1:2181)
 ```
 
 ## TODO LIST
-* Need to add some decorator to check if the conn is alive and anthing others
+* Need to add some decorator to check if the conn is alive and anything others
