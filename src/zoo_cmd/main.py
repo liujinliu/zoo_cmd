@@ -6,7 +6,8 @@ class ZooCmd(Cmd):
     
     def __init__(self):
         Cmd.__init__(self)
-        self.zoo = None 
+        self.zoo = None
+        self.prefix_path = '/'
 
     def help_conn(self):
         print ("conn {host:port}")
@@ -17,10 +18,17 @@ class ZooCmd(Cmd):
         else:
             print "client already connected"
 
+    def do_ls(self,line=None):
+        if not self.zoo:
+            print "connect zookeeper fisrt"
+            return
+        path =  self.prefix_path + line
+        print self.zoo.zk.get_children(path)
+
     def do_exit(self, line):
         if self.zoo:
-            child = self.zoo.zk.get_children('/')
-            print child
+            print self.zoo.zk.get_children(
+                    self.prefix_path)
         print "Bye"
         sys.exit()
 
