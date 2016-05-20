@@ -2,6 +2,15 @@
 
 from kazoo.client import KazooClient, KazooState
 
+def fullpath(func):
+    def wrapper(self, path, *args):
+        fullpath =  self.prefix_path + path \
+                   if path else self.prefix_path
+        return func(self, fullpath, *args)
+    return wrapper
+
+
+
 class ZkOpers(object):
     
     def __init__(self, hosts='127.0.0.1:2181'):
@@ -36,10 +45,9 @@ class ZkOpers(object):
         else:
             pass
 
-    def ls(self, path=None):
-        fullpath =  self.prefix_path + path \
-                   if path else self.prefix_path
-        return ','.join(self.zk.get_children(fullpath))
+    @fullpath
+    def ls(self, path=None, *args):
+        return ','.join(self.zk.get_children(path))
 
     def cd(self, path=None):
         if not path:
@@ -54,3 +62,12 @@ class ZkOpers(object):
 
     def pwd(self):
         return self.prefix_path
+
+    @fullpath
+    def cat(self, path=None, *args):
+        return self.zk.get(path)
+
+    @fullpath
+    def set(self, path, value, *args):
+        return self.zk.set(path, value)
+
