@@ -9,7 +9,7 @@ class ZkOpers(object):
             self.zk.add_listener(self.listener)
             self.zk.start()
             print 'instance zk client (%s)' % hosts
-
+            self.prefix_path = '/'
 
     def close(self):
         try:
@@ -34,3 +34,6 @@ class ZkOpers(object):
         else:
             pass
 
+    def ls(self, path=None):
+        fullpath =  self.prefix_path + path if path else self.prefix_path
+        return self.zk.get_children(fullpath)
