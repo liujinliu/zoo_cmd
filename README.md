@@ -18,7 +18,7 @@ conn  help
 
 Undocumented commands:
 ======================
-cat  cd  exit  ls  pwd  set
+cat  cd  exit  ls  pwd  set touch rm
 (Cmd) ls
 [u'liujinliu', u'zookeeper']
 (Cmd) ls liujinliu
