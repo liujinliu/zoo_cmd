@@ -61,6 +61,16 @@ class ZooCmd(Cmd):
         path, value = line.split()
         print self.zoo.set('/'+path, value)
 
+    @never_crash
+    @client_check 
+    def do_touch(self,line=None, *args):
+        print self.zoo.touch('/'+line)
+
+    @never_crash
+    @client_check 
+    def do_rm(self,line=None, *args):
+        print self.zoo.rm('/'+line)
+
 def main():
     cmd = ZooCmd()
     cmd.cmdloop()

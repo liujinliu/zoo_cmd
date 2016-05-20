@@ -75,3 +75,10 @@ class ZkOpers(object):
     def set(self, path, value, *args):
         return self.zk.set(path, value)
 
+    @fullpath
+    def touch(self, filename, *args):
+        return self.zk.create(filename)
+
+    @fullpath
+    def rm(self, filename, *args):
+        return self.zk.delete(filename, recursive=True)
