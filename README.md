@@ -10,6 +10,15 @@ I hope I can operate zookeeper path like localfile system
 [liujinliu@liujinliu zoo_cmd]$ zk_cmd
 (Cmd) conn 127.0.0.1:2181
 instance zk client (127.0.0.1:2181)
+(Cmd) help
+
+Documented commands (type help <topic>):
+========================================
+conn  help
+
+Undocumented commands:
+======================
+cat  cd  exit  ls  pwd  set
 (Cmd) ls
 [u'liujinliu', u'zookeeper']
 (Cmd) ls liujinliu
