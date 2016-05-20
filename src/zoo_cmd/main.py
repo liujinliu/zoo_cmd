@@ -27,13 +27,21 @@ class ZooCmd(Cmd):
         else:
             print "client already connected"
 
+    def do_exit(self, line):
+        print "Bye"
+        sys.exit()
+
     @client_check
     def do_ls(self,line=None):
         print self.zoo.ls(line)
 
-    def do_exit(self, line):
-        print "Bye"
-        sys.exit()
+    @client_check
+    def do_cd(self,line=None):
+        print self.zoo.cd(line)
+
+    @client_check
+    def do_pwd(self,line=None):
+        print self.zoo.pwd()
 
 def main():
     cmd = ZooCmd()

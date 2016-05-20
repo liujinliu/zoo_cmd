@@ -27,13 +27,30 @@ class ZkOpers(object):
 
     def listener(self, state):
         if state == KazooState.LOST:
-            print "zk connect lost, stop this connection and then start new one!"
+            print ("zk connect lost, stop this "
+                   "connection and then start new one!")
             
         elif state == KazooState.SUSPENDED:
-            print "zk connect suspended, stop this connection and then start new one!"
+            print ("zk connect suspended, stop this "
+                   "connection and then start new one!")
         else:
             pass
 
     def ls(self, path=None):
-        fullpath =  self.prefix_path + path if path else self.prefix_path
-        return self.zk.get_children(fullpath)
+        fullpath =  self.prefix_path + path \
+                   if path else self.prefix_path
+        return ','.join(self.zk.get_children(fullpath))
+
+    def cd(self, path=None):
+        if not path:
+            return
+        _pathlist = self.prefix_path.split('/')
+        if path == '..' and len(_pathlist) > 0:
+            _pathlist.pop()
+        else:
+           _pathlist.append(path)
+        self.prefix_path = '/'.join(_pathlist).replace('//','/')
+        return  self.prefix_path
+
+    def pwd(self):
+        return self.prefix_path
