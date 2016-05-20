@@ -9,6 +9,13 @@ def client_check(func):
             return func(self, line, *args)
     return wrapper
 
+def never_crash(func):
+    def wrapper(self, *args):
+        try:
+            return func(self, *args)
+        except Exception as e:
+            print "exception accur:",str(e)
+    return wrapper
 
 class ZooCmd(Cmd):
     
@@ -43,10 +50,12 @@ class ZooCmd(Cmd):
     def do_pwd(self,line=None):
         print self.zoo.pwd()
 
-    @client_check
+    @never_crash
+    @client_check 
     def do_cat(self,line=None, *args):
         print self.zoo.cat('/'+line)
 
+    @never_crash
     @client_check
     def do_set(self,line, *args):
         path, value = line.split()
