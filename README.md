@@ -8,13 +8,13 @@ I hope I can operate zookeeper path like localfile system
 ## USEAGE
 ```
 [liujinliu@liujinliu zoo_cmd]$ zk_cmd
-(Cmd) conn
+(Cmd) conn 127.0.0.1:2181
 instance zk client (127.0.0.1:2181)
 (Cmd) ls
-[u'letv', u'zookeeper']
-(Cmd) ls letv
-[u'docker']
-(Cmd) ls letv/docker
+[u'liujinliu', u'zookeeper']
+(Cmd) ls liujinliu
+[u'doc']
+(Cmd) ls liujinliu/doc
 [u'acb896d8-078c']
 ```
 
