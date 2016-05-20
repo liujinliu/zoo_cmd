@@ -1,7 +1,6 @@
 #coding=utf-8
 
 from kazoo.client import KazooClient, KazooState
-import logging
 
 class ZkOpers(object):
     
@@ -9,7 +8,7 @@ class ZkOpers(object):
             self.zk = KazooClient(hosts=hosts, timeout=20)
             self.zk.add_listener(self.listener)
             self.zk.start()
-            logging.info("instance zk client (%s)" % hosts)
+            print 'instance zk client (%s)' % hosts
 
 
     def close(self):
@@ -28,10 +27,10 @@ class ZkOpers(object):
 
     def listener(self, state):
         if state == KazooState.LOST:
-            logging.info("zk connect lost, stop this connection and then start new one!")
+            print "zk connect lost, stop this connection and then start new one!"
             
         elif state == KazooState.SUSPENDED:
-            logging.info("zk connect suspended, stop this connection and then start new one!")
+            print "zk connect suspended, stop this connection and then start new one!"
         else:
             pass
 
