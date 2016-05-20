@@ -57,7 +57,11 @@ class ZkOpers(object):
             _pathlist.pop()
         else:
            _pathlist.append(path)
-        self.prefix_path = '/'.join(_pathlist).replace('//','/')
+        _prefix_path = '/'.join(_pathlist).replace('//','/')
+        if self.zk.exists(_prefix_path):
+            self.prefix_path = _prefix_path
+        else:
+            print "unkown path"
         return  self.prefix_path
 
     def pwd(self):
