@@ -2,12 +2,20 @@
 from cmd import Cmd
 import sys
 from zoo_cmd.zk import zk_opers
+
+def client_check(func):
+    def wrapper(self, line):
+        if self.zoo:
+            return func(self, line)
+    return wrapper
+
+
 class ZooCmd(Cmd):
     
     def __init__(self):
         Cmd.__init__(self)
         self.zoo = None
-
+    
     def help_conn(self):
         print ("conn {host:port}")
 
@@ -19,15 +27,11 @@ class ZooCmd(Cmd):
         else:
             print "client already connected"
 
+    @client_check
     def do_ls(self,line=None):
-        if not self.zoo:
-            print "connect zookeeper fisrt"
-            return
         print self.zoo.ls(line)
 
     def do_exit(self, line):
-        if self.zoo:
-            print self.zoo.ls()
         print "Bye"
         sys.exit()
 

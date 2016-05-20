@@ -14,7 +14,7 @@ install: build
 
 install_whl: install
 
-uninstall:
+uninstall: clean
 	pip uninstall -y zoo_cmd 
 
 deploy:
