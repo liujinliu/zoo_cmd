@@ -17,3 +17,6 @@ instance zk client (127.0.0.1:2181)
 (Cmd) ls letv/docker
 [u'acb896d8-078c']
 ```
+
+## TODO LIST
+* Need to add some decorator to check if the conn is alive and anthing others
