@@ -2,12 +2,12 @@
 import sys
 import os
 import setuptools
-from version import __VERSION__
+#from version import __VERSION__
 
 def _setup():
     setuptools.setup(
         name='zoo_cmd',
-        version=__VERSION__,
+        version='0.0.2',
         description='zookeeper client',
         author='liujinliu',
         author_email='',
@@ -20,8 +20,7 @@ def _setup():
                 'zk_cmd=zoo_cmd.main:main',
                 ]
             },
-        classifiers=[
-            'Development Status :: 4 - Beta Development Status',
+        classifiers=[ 
             'Environment :: Console',
             'Topic :: Utilities',
         ],
