@@ -40,7 +40,8 @@ class ZooCmd(Cmd):
 
     @client_check
     def do_ls(self,line=None, *args):
-        print self.zoo.ls(line)
+        for pname in self.zoo.ls(line):
+            print pname
 
     @client_check
     def do_cd(self,line=None):

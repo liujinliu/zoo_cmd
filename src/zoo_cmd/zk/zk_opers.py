@@ -47,7 +47,7 @@ class ZkOpers(object):
 
     @fullpath
     def ls(self, path=None, *args):
-        return ','.join(self.zk.get_children(path))
+        return self.zk.get_children(path)
 
     def cd(self, path=None):
         if not path:
