@@ -43,6 +43,7 @@ class ZooCmd(Cmd):
         for pname in self.zoo.ls(line):
             print pname
 
+    @never_crash
     @client_check
     def do_cd(self,line=None):
         print self.zoo.cd(line)
