@@ -2,12 +2,11 @@
 import sys
 import os
 import setuptools
-#from version import __VERSION__
 
 def _setup():
     setuptools.setup(
         name='zoo_cmd',
-        version='0.0.2',
+        version='0.0.1',
         description='zookeeper client',
         author='liujinliu',
         author_email='',
@@ -27,21 +26,6 @@ def _setup():
     )
 
 def main():
-    if len(sys.argv) > 1:
-        if sys.argv[1] == 'publish':
-            os.system('make publish')
-            sys.exit()
-        elif sys.argv[1] == 'release':
-            if len(sys.argv) < 3:
-                type_ = 'patch'
-            else:
-                type_ = sys.argv[2]
-            assert type_ in ('major', 'minor', 'patch')
-
-            os.system('bumpversion --current-version {} {}'
-                      .format(__VERSION__, type_))
-            sys.exit()
-
     _setup()
 
 
