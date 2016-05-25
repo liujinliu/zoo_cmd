@@ -2,6 +2,9 @@
 I hope I can operate zookeeper path like localfile system
 
 ## DEPLOY METHOD
+### install from pypi
+    pip install zoo_cmd
+### install from source
     make install
     make uninstall ---UNDEPLOY METHOD
 
