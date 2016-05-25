@@ -69,7 +69,8 @@ class ZkOpers(object):
 
     @fullpath
     def cat(self, path=None, *args):
-        return self.zk.get(path)
+        value, _ = self.zk.get(path)
+        return value 
 
     @fullpath
     def set(self, path, value, *args):
