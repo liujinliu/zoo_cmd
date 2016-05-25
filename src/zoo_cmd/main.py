@@ -73,6 +73,11 @@ class ZooCmd(Cmd):
     def do_rm(self,line=None, *args):
         print self.zoo.rm('/'+line)
 
+    @never_crash
+    @client_check 
+    def do_vi(self,line=None, *args):
+        self.zoo.vi('/'+line)
+
 def main():
     cmd = ZooCmd()
     cmd.cmdloop()

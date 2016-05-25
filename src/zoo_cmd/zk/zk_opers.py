@@ -1,6 +1,9 @@
 #coding=utf-8
 
 from kazoo.client import KazooClient, KazooState
+import os
+from datetime import datetime
+import time
 
 def fullpath(func):
     def wrapper(self, path, *args):
@@ -83,3 +86,27 @@ class ZkOpers(object):
     @fullpath
     def rm(self, filename, *args):
         return self.zk.delete(filename, recursive=True)
+
+    @fullpath
+    def vi(self, path=None, *args):
+        value, _ = self.zk.get(path)
+        # create a tmp file to store the value, then use vi to 
+        # modify this file. At the end, save the file, get the
+        # new value, and restore the value to the zookeeper node
+        filename = '%s_%d.tmp' % (path.split('/')[-1],
+                  time.mktime(datetime.now().timetuple()))
+        tmpfile = open(filename, 'w')
+        if value:
+            tmpfile.write(value)
+        tmpfile.close()
+        try:
+            os.system('vi %s' % filename)
+        except:
+            print "error occur in edit"
+            return
+        tmpfile = open(filename, 'r')
+        lines = tmpfile.read().strip('\n')
+        self.zk.set(path, lines)
+        tmpfile.close()
+        os.remove(filename)
+        print "edit ok"
