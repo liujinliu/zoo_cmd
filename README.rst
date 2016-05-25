@@ -13,7 +13,8 @@ install from pypi:
 install from source:
 
 ::
-
+    git clone git@github.com:liujinliu/zoo_cmd.git
+    cd zoo_cmd
     make install
     make uninstall ---UNDEPLOY METHOD
 
