@@ -3,14 +3,22 @@ import sys
 import os
 import setuptools
 
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+def readme():
+    with open(os.path.join(HERE, 'README.md')) as f:
+            return f.read()
+
 def _setup():
     setuptools.setup(
         name='zoo_cmd',
-        version='0.0.1',
-        description='zookeeper client',
+        version='0.0.4',
+        description='zookeeper cli client',
+        long_description=readme(),
         author='liujinliu',
-        author_email='',
-        url='',
+        author_email='liujinliu@le.com',
+        url='https://github.com/liujinliu/zoo_cmd',
+        license='Apache',
         install_requires=['kazoo'],
         packages=['zoo_cmd', 'zoo_cmd.zk'],
         package_dir={'': 'src'},
@@ -21,7 +29,6 @@ def _setup():
             },
         classifiers=[ 
             'Environment :: Console',
-            'Topic :: Utilities',
         ],
     )
 
