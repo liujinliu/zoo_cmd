@@ -37,7 +37,7 @@ USEAGE
     (Cmd) ls           ----查看当前节点下的子节点
     zookeeper
     test
-    (Cmd) cd test      ----进入子节点路径
+    (Cmd) cd test      ----进入子节点路径(支持跟绝对路径参数，类似"/test/docker"这种)
     /test
     (Cmd) ls           ----查看当前节点下的子节点
     docker
@@ -58,7 +58,7 @@ USEAGE
     acb896d8
     (Cmd) rm tmp_ljl  ----删除节点
     None
-    (Cmd) cd ..      ----回退到上一层节点(目前每次只能回退一层，可以回退多次)
+    (Cmd) cd ..      ----回退(同时支持类似于"../.."这样的回退多层路径)
     /test
     (Cmd)
 
