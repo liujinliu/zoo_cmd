@@ -52,15 +52,19 @@ class ZkOpers(object):
     def ls(self, path=None, *args):
         return self.zk.get_children(path)
 
+    def _relative_path_cd(self, path):
+        _pathlist = self.prefix_path.split('/')
+        map(lambda x: _pathlist.pop() if x == '..' \
+            else _pathlist.append(x), 
+            filter(lambda x:x, path.split('/')))
+        prefix_path = '/'.join(_pathlist).replace('//','/')
+        return prefix_path
+
     def cd(self, path=None):
         if not path:
             return
-        _pathlist = self.prefix_path.split('/')
-        if path == '..' and len(_pathlist) > 0:
-            _pathlist.pop()
-        else:
-           _pathlist.append(path)
-        _prefix_path = '/'.join(_pathlist).replace('//','/')
+        _prefix_path = path if path.startswith('/') else \
+                        self._relative_path_cd(path)
         if self.zk.exists(_prefix_path):
             self.prefix_path = _prefix_path
         else:
