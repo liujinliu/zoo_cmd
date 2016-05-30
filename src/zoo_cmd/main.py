@@ -41,7 +41,10 @@ class ZooCmd(Cmd):
     @client_check
     def do_ls(self,line=None, *args):
         for pname in self.zoo.ls(line):
-            print pname
+            _pname = ('+ %s' % pname) if \
+                     len(self.zoo.ls('%s/%s' % (line,pname))) \
+                     else ('- %s' % pname)
+            print _pname
 
     @never_crash
     @client_check

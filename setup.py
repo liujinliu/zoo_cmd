@@ -12,7 +12,7 @@ def readme():
 def _setup():
     setuptools.setup(
         name='zoo_cmd',
-        version='0.0.5',
+        version='0.0.7',
         description='zookeeper cli client',
         long_description=readme(),
         author='liujinliu',
