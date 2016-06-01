@@ -14,7 +14,7 @@ def never_crash(func):
         try:
             return func(self, *args)
         except Exception as e:
-            print "exception accur:",str(e)
+            print("exception accur:%s" % str(e))
     return wrapper
 
 class ZooCmd(Cmd):
@@ -24,7 +24,7 @@ class ZooCmd(Cmd):
         self.zoo = None
     
     def help_conn(self):
-        print ("conn {host:port}")
+        print("conn {host:port}")
 
     def do_conn(self, line):
         if len(line) == 0:
@@ -32,10 +32,10 @@ class ZooCmd(Cmd):
         if not self.zoo:
             self.zoo = zk_opers.ZkOpers(hosts=line)
         else:
-            print "client already connected"
+            print("client already connected")
 
     def do_exit(self, line):
-        print "Bye"
+        print("Bye")
         sys.exit()
 
     @client_check
@@ -44,37 +44,37 @@ class ZooCmd(Cmd):
             _pname = ('+ %s' % pname) if \
                      len(self.zoo.ls('%s/%s' % (line,pname))) \
                      else ('- %s' % pname)
-            print _pname
+            print(_pname)
 
     @never_crash
     @client_check
     def do_cd(self,line=None):
-        print self.zoo.cd(line)
+        print(self.zoo.cd(line))
 
     @client_check
     def do_pwd(self,line=None):
-        print self.zoo.pwd()
+        print(self.zoo.pwd())
 
     @never_crash
     @client_check 
     def do_cat(self,line=None, *args):
-        print self.zoo.cat('/'+line)
+        print(self.zoo.cat('/'+line))
 
     @never_crash
     @client_check
     def do_set(self,line, *args):
         path, value = line.split()
-        print self.zoo.set('/'+path, value)
+        print(self.zoo.set('/'+path, value))
 
     @never_crash
     @client_check 
     def do_touch(self,line=None, *args):
-        print self.zoo.touch('/'+line)
+        print(self.zoo.touch('/'+line))
 
     @never_crash
     @client_check 
     def do_rm(self,line=None, *args):
-        print self.zoo.rm('/'+line)
+        print(self.zoo.rm('/'+line))
 
     @never_crash
     @client_check 
