@@ -38,13 +38,19 @@ class ZooCmd(Cmd):
         print("Bye")
         sys.exit()
 
+    @never_crash
     @client_check
     def do_ls(self,line=None, *args):
-        for pname in self.zoo.ls(line):
+        for pname in sorted(self.zoo.ls(line)):
             _pname = ('+ %s' % pname) if \
                      len(self.zoo.ls('%s/%s' % (line,pname))) \
                      else ('- %s' % pname)
             print(_pname)
+
+    @never_crash
+    @client_check
+    def do_wc(self,line=None, *args):
+        print(len(self.zoo.ls(line)))
 
     @never_crash
     @client_check
