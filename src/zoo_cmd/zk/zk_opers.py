@@ -15,7 +15,7 @@ def fullpath(func):
 
 
 class ZkOpers(object):
-    
+
     def __init__(self, hosts='127.0.0.1:2181'):
             self.zk = KazooClient(hosts=hosts, timeout=20)
             self.zk.add_listener(self.listener)
@@ -29,7 +29,7 @@ class ZkOpers(object):
             self.zk.close()
         except Exception as e:
             logging.error(e)
-   
+
     def stop(self):
         try:
             self.zk.stop()
@@ -41,12 +41,20 @@ class ZkOpers(object):
         if state == KazooState.LOST:
             print("zk connect lost, stop this "
                    "connection and then start new one!")
-            
+
         elif state == KazooState.SUSPENDED:
             print("zk connect suspended, stop this "
                    "connection and then start new one!")
         else:
             pass
+
+    @fullpath
+    def get_mtime(self, path):
+        _, stat = self.zk.get(path)
+        mtime = int(stat.mtime)/1000
+        timeA = time.localtime(mtime)
+        time_str = time.strftime('%Y-%m-%d %H:%M:%S', timeA)
+        return time_str
 
     @fullpath
     def ls(self, path=None, *args):
@@ -55,7 +63,7 @@ class ZkOpers(object):
     def _relative_path_cd(self, path):
         _pathlist = self.prefix_path.split('/')
         list(map(lambda x: _pathlist.pop() if x == '..' \
-            else _pathlist.append(x), 
+            else _pathlist.append(x),
             list(filter(lambda x:x, path.split('/')))))
         prefix_path = '/'.join(_pathlist).replace('//','/')
         return prefix_path
@@ -77,7 +85,7 @@ class ZkOpers(object):
     @fullpath
     def cat(self, path=None, *args):
         value, _ = self.zk.get(path)
-        return value 
+        return value
 
     @fullpath
     def set(self, path, value, *args):
@@ -94,7 +102,7 @@ class ZkOpers(object):
     @fullpath
     def vi(self, path=None, *args):
         value, _ = self.zk.get(path)
-        # create a tmp file to store the value, then use vi to 
+        # create a tmp file to store the value, then use vi to
         # modify this file. At the end, save the file, get the
         # new value, and restore the value to the zookeeper node
         filename = '%s_%d.tmp' % (path.split('/')[-1],

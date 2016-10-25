@@ -18,11 +18,11 @@ def never_crash(func):
     return wrapper
 
 class ZooCmd(Cmd):
-    
+
     def __init__(self):
         Cmd.__init__(self)
         self.zoo = None
-    
+
     def help_conn(self):
         print("conn {host:port}")
 
@@ -42,9 +42,10 @@ class ZooCmd(Cmd):
     @client_check
     def do_ls(self,line=None, *args):
         for pname in sorted(self.zoo.ls(line)):
-            _pname = ('+ %s' % pname) if \
+            time_str = self.zoo.get_mtime('%s/%s' % (line,pname))
+            _pname = ('+ %-40s%s' % (pname, time_str) if \
                      len(self.zoo.ls('%s/%s' % (line,pname))) \
-                     else ('- %s' % pname)
+                     else ('- %-40s%s' % (pname, time_str)))
             print(_pname)
 
     @never_crash
@@ -62,7 +63,7 @@ class ZooCmd(Cmd):
         print(self.zoo.pwd())
 
     @never_crash
-    @client_check 
+    @client_check
     def do_cat(self,line=None, *args):
         print(self.zoo.cat('/'+line))
 
@@ -73,17 +74,17 @@ class ZooCmd(Cmd):
         print(self.zoo.set('/'+path, value))
 
     @never_crash
-    @client_check 
+    @client_check
     def do_touch(self,line=None, *args):
         print(self.zoo.touch('/'+line))
 
     @never_crash
-    @client_check 
+    @client_check
     def do_rm(self,line=None, *args):
         print(self.zoo.rm('/'+line))
 
     @never_crash
-    @client_check 
+    @client_check
     def do_vi(self,line=None, *args):
         self.zoo.vi('/'+line)
 
