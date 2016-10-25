@@ -37,6 +37,8 @@ USEAGE
     (Cmd) ls           ----查看当前节点下的子节点
     + zookeeper
     + test
+    (Cmd) wc           ----查看当前节点下的子节点个数
+    2 
     (Cmd) cd test      ----进入子节点路径(支持跟绝对路径参数，类似"/test/docker"这种)
     /test
     (Cmd) ls           ----查看当前节点下的子节点
