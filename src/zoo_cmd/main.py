@@ -63,6 +63,15 @@ class ZooCmd(Cmd):
     def do_cd(self,line=None):
         print(self.zoo.cd(line))
 
+    @never_crash
+    @client_check
+    def do_cdcd(self,line=None):
+        lines = self.zoo.ls(line)
+        if len(lines) == 1:
+            print(self.zoo.cd(lines[0]))
+        else:
+            print('no default path')
+
     @client_check
     def do_pwd(self,line=None):
         print(self.zoo.pwd())
