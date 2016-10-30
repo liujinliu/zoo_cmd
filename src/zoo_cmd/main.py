@@ -22,6 +22,7 @@ class ZooCmd(Cmd):
     def __init__(self):
         Cmd.__init__(self)
         self.zoo = None
+        self.prompt = 'zoo#>'
 
     def help_conn(self):
         print("conn {host:port}")
@@ -31,12 +32,16 @@ class ZooCmd(Cmd):
             line = '127.0.0.1:2181'
         if not self.zoo:
             self.zoo = zk_opers.ZkOpers(hosts=line)
+            self.prompt = 'zoo@%s#> ' %line
         else:
             print("client already connected")
 
     def do_exit(self, line):
         print("Bye")
         sys.exit()
+
+    def emptyline(self):
+        return
 
     @never_crash
     @client_check
