@@ -4,6 +4,7 @@ from kazoo.client import KazooClient, KazooState
 import os
 from datetime import datetime
 import time
+import re
 
 def fullpath(func):
     def wrapper(self, path, *args):
@@ -82,9 +83,35 @@ class ZkOpers(object):
     def pwd(self):
         return self.prefix_path
 
+    def recursion_cat(self, path):
+        relative_path = path[len(self.prefix_path):]
+        tmp_paths = relative_path.split('/')
+        paths = list(filter(lambda x:x, tmp_paths))
+        layer_num = len(paths)
+        prefixes = [self.prefix_path]
+        i, values = 0, []
+        while i < layer_num:
+            for prefix in prefixes:
+                paths_pool = self.zk.get_children(prefix)
+                paths_selects = list(filter(lambda x:re.search(paths[i], x),
+                                    paths_pool))
+                next_prefixes = []
+                for p in paths_selects:
+                    full_path = os.path.join(prefix, p)
+                    next_prefixes.append(full_path)
+            prefixes = next_prefixes
+            i += 1
+        for p in prefixes:
+            value, _ = self.zk.get(p)
+            values.append("--%s:\n%s" %(p, value))
+        return '\n'.join(values)
+
     @fullpath
     def cat(self, path=None, *args):
-        value, _ = self.zk.get(path)
+        if self.zk.exists(path):
+            value, _ = self.zk.get(path)
+        else:
+            value = self.recursion_cat(path)
         return value
 
     @fullpath
