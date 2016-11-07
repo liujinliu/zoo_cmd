@@ -47,7 +47,7 @@ class ZooCmd(Cmd):
     @client_check
     def do_ls(self,line=None, *args):
         for pname in sorted(self.zoo.ls(line)):
-            time_str = self.zoo.get_mtime('%s/%s' % (line,pname))
+            time_str = self.zoo.get_extra_info('%s/%s' % (line,pname))
             _pname = ('+ %-40s%s' % (pname, time_str) if \
                      len(self.zoo.ls('%s/%s' % (line,pname))) \
                      else ('- %-40s%s' % (pname, time_str)))

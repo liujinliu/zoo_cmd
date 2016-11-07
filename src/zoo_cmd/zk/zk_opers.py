@@ -50,12 +50,13 @@ class ZkOpers(object):
             pass
 
     @fullpath
-    def get_mtime(self, path):
-        _, stat = self.zk.get(path)
+    def get_extra_info(self, path):
+        value, stat = self.zk.get(path)
         mtime = int(stat.mtime)/1000
         timeA = time.localtime(mtime)
+        len_val = 0 if not value else len(value)
         time_str = time.strftime('%Y-%m-%d %H:%M:%S', timeA)
-        return time_str
+        return '%s%10d' %(time_str,len_val)
 
     @fullpath
     def ls(self, path=None, *args):
