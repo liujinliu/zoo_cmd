@@ -7,7 +7,6 @@ clean:
 
 build: clean
 	python setup.py build_py bdist_wheel
-	cp Makefile dist
 
 install: build
 	pip install dist/*.whl -U

@@ -1,3 +1,7 @@
 *.pyo
 *.pyc
 src/tags
+dist
+build
+*.egg-info/
+.idea
