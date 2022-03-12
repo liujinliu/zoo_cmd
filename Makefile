@@ -16,7 +16,7 @@ install_whl: install
 uninstall: clean
 	pip uninstall -y zoo_cmd 
 
-deploy:
-	pip install *.whl -U
+upload:
+	twine upload -r testpypi dist\*.whl
 
 .PHONY : all clean build install install_whl
