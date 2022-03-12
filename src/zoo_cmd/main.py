@@ -45,12 +45,17 @@ class ZooCmd(Cmd):
 
     @never_crash
     @client_check
-    def do_ls(self,line=None, *args):
+    def do_ls(self, line=None, *args):
+        max_pname_len = 38
+        for pname in self.zoo.ls(line):
+            max_pname_len = max(max_pname_len, len(pname))
+
         for pname in sorted(self.zoo.ls(line)):
             time_str = self.zoo.get_extra_info('%s/%s' % (line,pname))
-            _pname = ('+ %-40s%s' % (pname, time_str) if \
-                     len(self.zoo.ls('%s/%s' % (line,pname))) \
-                     else ('- %-40s%s' % (pname, time_str)))
+            prefix = '+'
+            if not len(self.zoo.ls('%s/%s' % (line,pname))):
+                prefix = '-'
+            _pname = ('%s %-*s  %s' % (prefix, max_pname_len, pname, time_str))
             print(_pname)
 
     @never_crash

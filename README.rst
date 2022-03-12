@@ -43,7 +43,7 @@ USEAGE
     /test
     zoo@127.0.0.1:2181#> ls           ----查看当前节点下的子节点
     + docker              2016-02-03 16:25:12
-    zoo@127.0.0.1:2181#> cd docker    ----if only there is only one child, you also use cdcd
+    zoo@127.0.0.1:2181#> cd docker    ----if only there is only one child, you can also use cdcd
     /test/docker
     zoo@127.0.0.1:2181#> ls
     + acb896d8            2016-02-03 16:25:12
