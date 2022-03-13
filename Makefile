@@ -17,6 +17,9 @@ uninstall: clean
 	pip uninstall -y zoo_cmd 
 
 upload:
-	twine upload -r testpypi dist\*.whl
+	twine upload -r testpypi dist/*.whl
+
+uploadpypi:
+	twine upload -r pypi dist/*.whl
 
 .PHONY : all clean build install install_whl

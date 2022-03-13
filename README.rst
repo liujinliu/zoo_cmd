@@ -25,7 +25,7 @@ USEAGE
 ::
 
     [liujinliu@liujinliu zoo_cmd]$ zk_cmd
-    zoo#> conn 127.0.0.1 
+    zoo#> conn 127.0.0.1:2181
     zoo@127.0.0.1:2181#> help
     Documented commands (type help <topic>):
     ========================================
@@ -34,6 +34,7 @@ USEAGE
     Undocumented commands:
     ======================
     cat  cd  cdcd  exit  ls  pwd  rm  set  touch  vi  wc
+    zoo@127.0..01:2181#> addauth digest zkljl 123456  ----acl策略设置(如果目标zk设置了acl的话)
     zoo@127.0.0.1:2181#> ls           ----查看当前节点下的子节点
     + zookeeper           2016-02-03 16:25:12
     + test                2016-02-03 16:25:12
