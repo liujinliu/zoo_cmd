@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import setuptools
-
+from setuptools import find_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -14,14 +14,14 @@ def readme():
 def _setup():
     setuptools.setup(
         name='zoo_cmd',
-        version='1.0.5',
+        version='1.1.0',
         description='zookeeper cli client',
         long_description=readme(),
         author='liujinliu',
         url='https://github.com/liujinliu/zoo_cmd',
         license='Apache',
         install_requires=['kazoo'],
-        packages=['zoo_cmd', 'zoo_cmd.zk'],
+        packages=find_packages('src'),
         package_dir={'': 'src'},
         entry_points={
             'console_scripts': [

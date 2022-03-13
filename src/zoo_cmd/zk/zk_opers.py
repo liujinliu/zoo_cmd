@@ -1,10 +1,12 @@
-#coding=utf-8
+# -*- coding: utf-8 -*-
 
+import logging
 from kazoo.client import KazooClient, KazooState
 import os
 from datetime import datetime
 import time
 import re
+
 
 def fullpath(func):
     def wrapper(self, path, *args):
@@ -12,7 +14,6 @@ def fullpath(func):
                    if path else self.prefix_path
         return func(self, fullpath, *args)
     return wrapper
-
 
 
 class ZkOpers(object):
@@ -117,7 +118,7 @@ class ZkOpers(object):
 
     @fullpath
     def set(self, path, value, *args):
-        return self.zk.set(path, value)
+        return self.zk.set(path, value.encode('utf-8'))
 
     @fullpath
     def touch(self, filename, *args):
