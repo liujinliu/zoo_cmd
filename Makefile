@@ -22,4 +22,7 @@ upload:
 uploadpypi:
 	twine upload -r pypi dist/*.whl
 
+install-test:
+	pip install zoo_cmd==${TEST_VERSION} --index-url https://test.pypi.org/simple/
+
 .PHONY : all clean build install install_whl
