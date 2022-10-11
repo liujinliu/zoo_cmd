@@ -2,6 +2,9 @@
 *.pyc
 src/tags
 dist
-build
+build/
 *.egg-info/
 .idea
+
+# Sphinx documentation
+doc/build
